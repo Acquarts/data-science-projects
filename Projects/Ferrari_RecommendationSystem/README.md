@@ -1,65 +1,65 @@
 # Ferrari Image Recommendation System 🏎️
 
-Un sistema de recomendación de imágenes inteligente para vehículos Ferrari utilizando Deep Learning y similitud coseno.
+An intelligent image recommendation system for Ferrari vehicles using Deep Learning and cosine similarity.
 
-## 📋 Descripción
+## 📋 Description
 
-Este proyecto implementa un sistema de recomendación basado en contenido visual que utiliza la red neuronal convolucional ResNet50 pre-entrenada para extraer características de imágenes de Ferrari y recomendar vehículos similares basándose en similitud coseno.
+This project implements a content-based recommendation system that uses the ResNet50 convolutional neural network pre-trained on ImageNet to extract features from Ferrari images and recommend similar vehicles based on cosine similarity.
 
-## ✨ Características
+## ✨ Features
 
-- **🤖 Deep Learning**: Utiliza ResNet50 pre-entrenado en ImageNet
-- **📊 Similitud Coseno**: Calcula similitudes entre vectores de características
-- **🖼️ Visualización**: Muestra resultados de recomendaciones visualmente
-- **⚡ Procesamiento Eficiente**: Manejo optimizado de datasets de imágenes
-- **🎯 Alta Precisión**: Recomendaciones basadas en características visuales profundas
+- **🤖 Deep Learning**: Uses ResNet50 pre-trained on ImageNet
+- **📊 Cosine Similarity**: Calculates similarities between feature vectors
+- **🖼️ Visualization**: Displays recommendation results visually
+- **⚡ Efficient Processing**: Optimized image dataset handling
+- **🎯 High Accuracy**: Recommendations based on deep visual features
 
-## 🛠️ Tecnologías
+## 🛠️ Technologies
 
 - **Python 3.x**
-- **TensorFlow/Keras** - Para el modelo ResNet50
-- **NumPy** - Operaciones numéricas
-- **Pandas** - Manipulación de datos
-- **Scikit-learn** - Similitud coseno
-- **PIL (Pillow)** - Procesamiento de imágenes
-- **Matplotlib** - Visualización
-- **tqdm** - Barras de progreso
+- **TensorFlow/Keras** - For ResNet50 model
+- **NumPy** - Numerical operations
+- **Pandas** - Data manipulation
+- **Scikit-learn** - Cosine similarity
+- **PIL (Pillow)** - Image processing
+- **Matplotlib** - Visualization
+- **tqdm** - Progress bars
 
-## 📦 Instalación
+## 📦 Installation
 
-1. **Clona el repositorio**
+1. **Clone the repository**
 ```bash
-git clone https://github.com/tu-usuario/ferrari-recommendation-system.git
+git clone https://github.com/your-username/ferrari-recommendation-system.git
 cd ferrari-recommendation-system
 ```
 
-2. **Instala las dependencias**
+2. **Install dependencies**
 ```bash
 pip install tensorflow numpy pandas scikit-learn Pillow matplotlib tqdm
 ```
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 ferrari-recommendation-system/
 │
-├── ferrari_recommendation.py          # Código principal
-├── ferrari_metadata.csv              # Metadatos del dataset
-├── ferrari_dataset/                  # Dataset de imágenes
+├── ferrari_recommendation.py          # Main code
+├── ferrari_metadata.csv              # Dataset metadata
+├── ferrari_dataset/                  # Image dataset
 │   └── ferrari_images/
-│       ├── 512/                     # Modelos Ferrari 512
+│       ├── 512/                     # Ferrari 512 models
 │       ├── roma/                    # Ferrari Roma
-│       ├── formula_1/               # Vehículos F1
+│       ├── formula_1/               # F1 vehicles
 │       └── ...
-├── test_images/                      # Imágenes de prueba
+├── test_images/                      # Test images
 │   ├── test_ferrari1.jpg
 │   └── test_ferrari2.jpg
 └── README.md
 ```
 
-## 🚀 Uso
+## 🚀 Usage
 
-### 1. Configuración Inicial
+### 1. Initial Setup
 
 ```python
 import os
@@ -70,18 +70,18 @@ from tensorflow.keras.preprocessing import image
 from PIL import Image
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Cargar modelo ResNet50 pre-entrenado
+# Load pre-trained ResNet50 model
 model = ResNet50(weights='imagenet', include_top=False, pooling='avg')
 ```
 
-### 2. Procesamiento del Dataset
+### 2. Dataset Processing
 
 ```python
-# Configurar rutas
+# Configure paths
 catalog_dir = "path/to/ferrari-dataset"
 csv_path = "path/to/ferrari_metadata.csv"
 
-# Procesar imágenes del catálogo
+# Process catalog images
 df = pd.read_csv(csv_path)
 features = []
 image_names = []
@@ -96,10 +96,10 @@ for _, row in tqdm(df.iterrows(), total=len(df)):
         image_names.append(img_name)
 ```
 
-### 3. Generar Recomendaciones
+### 3. Generate Recommendations
 
 ```python
-# Función de recomendación
+# Recommendation function
 def recommend_similar_images(query_image_path, top_k=5):
     img_array = load_and_preprocess_image(query_image_path)
     query_vector = model.predict(img_array)[0].reshape(1, -1)
@@ -109,20 +109,20 @@ def recommend_similar_images(query_image_path, top_k=5):
     for i, idx in enumerate(top_indices):
         print(f"{i+1}. {image_names[idx]} — similarity: {similarity_scores[idx]:.4f}")
 
-# Ejemplo de uso
+# Usage example
 recommend_similar_images("path/to/query_image.jpg", top_k=5)
 ```
 
-### 4. Visualización de Resultados
+### 4. Results Visualization
 
 ```python
-# Mostrar recomendaciones visualmente
+# Show recommendations visually
 show_similar_images("path/to/query_image.jpg", top_k=5)
 ```
 
-## 📊 Resultados Ejemplo
+## 📊 Example Results
 
-### Consulta: 1970 Ferrari 512
+### Query: 1970 Ferrari 512
 ```
 🔎 Query image: 1970_Ferrari_512_M_2.jpg
 
@@ -133,7 +133,7 @@ show_similar_images("path/to/query_image.jpg", top_k=5)
 5. ferrari_dataset/ferrari_images/formula_1/2024_Ferrari_SF-24_2.jpg — similarity: 0.7319
 ```
 
-### Consulta: 2024 Ferrari Roma Spider
+### Query: 2024 Ferrari Roma Spider
 ```
 🔎 Query image: 2024_Ferrari_Roma_Spider_1.jpg
 
@@ -144,74 +144,74 @@ show_similar_images("path/to/query_image.jpg", top_k=5)
 5. ferrari_dataset/ferrari_images/roma/2024_Ferrari_Roma_Spider_4.jpg — similarity: 0.7358
 ```
 
-## 🧠 Algoritmo
+## 🧠 Algorithm
 
-1. **Extracción de Características**: Utiliza ResNet50 para extraer vectores de características de 2048 dimensiones
-2. **Similitud Coseno**: Calcula la similitud entre el vector consulta y todos los vectores del dataset
-3. **Ranking**: Ordena los resultados por similitud descendente
-4. **Top-K**: Retorna las K imágenes más similares
+1. **Feature Extraction**: Uses ResNet50 to extract 2048-dimensional feature vectors
+2. **Cosine Similarity**: Calculates similarity between query vector and all dataset vectors
+3. **Ranking**: Sorts results by descending similarity
+4. **Top-K**: Returns the K most similar images
 
-## ⚙️ Funciones Principales
+## ⚙️ Main Functions
 
-- `load_and_preprocess_image()`: Carga y preprocesa imágenes para el modelo
-- `recommend_similar_images()`: Genera recomendaciones de texto
-- `show_similar_images()`: Visualiza recomendaciones con matplotlib
-- `recommend_from_path()`: Wrapper para recomendaciones desde archivos externos
+- `load_and_preprocess_image()`: Loads and preprocesses images for the model
+- `recommend_similar_images()`: Generates text recommendations
+- `show_similar_images()`: Visualizes recommendations with matplotlib
+- `recommend_from_path()`: Wrapper for recommendations from external files
 
-## 📈 Rendimiento
+## 📈 Performance
 
-- **Procesamiento**: ~100ms por imagen en GPU
-- **Precisión**: Alta similitud visual entre recomendaciones
-- **Escalabilidad**: Eficiente para datasets de miles de imágenes
-- **Memoria**: Vectores de características compactos (2048 dim)
+- **Processing**: ~100ms per image on GPU
+- **Accuracy**: High visual similarity between recommendations
+- **Scalability**: Efficient for datasets with thousands of images
+- **Memory**: Compact feature vectors (2048 dim)
 
-## 🔧 Configuración Avanzada
+## 🔧 Advanced Configuration
 
-### Ajustar Parámetros del Modelo
+### Adjust Model Parameters
 ```python
-# Cambiar tamaño de entrada
-target_size = (224, 224)  # Tamaño estándar ResNet50
+# Change input size
+target_size = (224, 224)  # Standard ResNet50 size
 
-# Ajustar número de recomendaciones
-top_k = 10  # Incrementar para más resultados
+# Adjust number of recommendations
+top_k = 10  # Increase for more results
 ```
 
-### Optimización de GPU
+### GPU Optimization
 ```python
-# Configurar GPU (si está disponible)
+# Configure GPU (if available)
 import tensorflow as tf
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
 if len(physical_devices) > 0:
     tf.config.experimental.set_memory_growth(physical_devices[0], True)
 ```
 
-## 🤝 Contribuciones
+## 🤝 Contributions
 
-Las contribuciones son bienvenidas. Para contribuir:
+Contributions are welcome. To contribute:
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📝 Licencia
+## 📝 License
 
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
+This project is under the MIT License. See `LICENSE` for more details.
 
-## 🙏 Agradecimientos
+## 🙏 Acknowledgments
 
-- **ImageNet** - Dataset de pre-entrenamiento
-- **TensorFlow/Keras** - Framework de Deep Learning
-- **Ferrari** - Por crear vehículos tan icónicos
-- **ResNet** - Arquitectura de red neuronal
+- **ImageNet** - Pre-training dataset
+- **TensorFlow/Keras** - Deep Learning framework
+- **Ferrari** - For creating such iconic vehicles
+- **ResNet** - Neural network architecture
 
-## 📧 Contacto
+## 📧 Contact
 
-Adrián Zambrana - [Linkedin](https://www.linkedin.com/in/adrianzambranaacquaroni/) - info.aza.future@gmail.com
+Adrián Zambrana - [LinkedIn](https://www.linkedin.com/in/adrianzambranaacquaroni/) - info.aza.future@gmail.com
 
-Link del Proyecto: [https://github.com/tu-usuario/ferrari-recommendation-system](https://github.com/tu-usuario/ferrari-recommendation-system)
+Project Link: [https://github.com/your-username/ferrari-recommendation-system](https://github.com/your-username/ferrari-recommendation-system)
 
 ---
 
-
+**Made with ❤️ for Ferrari enthusiasts and Deep Learning practitioners**
